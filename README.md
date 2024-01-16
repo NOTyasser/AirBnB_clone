@@ -58,6 +58,7 @@ Example : command_name = ls;   method_name = do_ls
 - Quitting is set by default in the Cmd framework. But we can make our own quit function.
 
 SERIALIZATION AND DESERIALIZATION
+
 Meaning to transform an object or a data to a format that can be easily stored and back. Meaning to transform an object to a dictionary. We do that by following several methods.
 
 - The pickle model :
