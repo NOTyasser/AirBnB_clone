@@ -98,7 +98,6 @@ class HBNBCommand(cmd.Cmd):
         except NameError:
             print("** class doesn't exist **")
 
-  class HBNBCommand(cmd.Cmd):
     # ... (Previous code remains unchanged)
 
     def do_all(self, arg):
