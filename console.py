@@ -101,7 +101,7 @@ class HBNBCommand(cmd.Cmd):
     # ... (Previous code remains unchanged)
 
     def do_all(self, arg):
-        objects = models.storage.all()
+         objects = models.storage.all()
         args = arg.split()
         if not args:
             for val in objects.values():
@@ -117,8 +117,8 @@ class HBNBCommand(cmd.Cmd):
     
     def do_count(self, arg):
     class_name = arg.split('.')[0]
-    count = sum(1 for obj in models.storage.all().values() if type(obj).__name__ == class_name)
-    print(count)
+        count = sum(1 for obj in models.storage.all().values() if type(obj).__name__ == class_name)
+        print(count)
 
     def do_show(self, arg):
         """Print the string representation of an instance."""
