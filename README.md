@@ -87,6 +87,7 @@ EXAMPLES :
 - Configuration files_ : These types of files require a state saving, where we save the last modification done, and it makes perfect sense to use serialization and deserialization to do this.
 
 HANDLING ARGUMENTS
+
 When we talk about names arguments we simply mean **kwargs, while when we talk about positional arguments we are describing *args.
 
 - Named arguments * kwargs / They are arguments given in the function call with the names of the attributes.
@@ -96,6 +97,7 @@ def fun(kwarg1=None, kwarg2=60)
 - Positional arguments * args / They are arguments given without specifying the names of the attributes. func("Person", 11) They must be provided before the named arguments if they were both mixed in a function call or in a function declaration. And different to named arguments they can not have a default value.
 
 DATETIME MODEL
+
 This model is very beneficial as it can be used to include the date and the time in our program. we can use import datetime but what is even better as we said in the import section is from datetime import datetime with that we import the exact class we need. datetime class unable us to work with the date and the time. But we can chose to specify further.
 from datetime import date Or from datetime import time
 What we can do with that is to display the time or the date or both in the wanted format. We can go a few steps further and perform arithmetics on the date and the time. In order to do that we're required to import the following :
