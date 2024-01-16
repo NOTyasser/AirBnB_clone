@@ -100,19 +100,20 @@ class HBNBCommand(cmd.Cmd):
 
     # ... (Previous code remains unchanged)
     def do_all(self, arg):
-     objects = models.storage.all()
-        args = arg.split()
-        if not args:
-            for val in objects.values():
-                print(f"{str(val)}", end="")
-            print()
+    objects = models.storage.all()
+    args = arg.split()
+    if not args:
+        for val in objects.values():
+            print(f"{str(val)}", end="")
+        print()
+    else:
+        class_name = args[0]
+        if class_name not in self.classes_map:
+            print("** class doesn't exist **")
         else:
-            class_name = args[0]
-            if class_name not in self.classes_map:
-                print("** class doesn't exist **")
-            else:
-                class_objects = [str(obj) for obj in objects.values() if type(obj).__name__ == class_name]
-                print("\n".join(class_objects))
+            class_objects = [str(obj) for obj in objects.values() if type(obj).__name__ == class_name]
+            print("\n".join(class_objects))
+
     def do_count(self, arg):
         class_name = arg.split('.')[0]
         count = sum(1 for obj in models.storage.all().values() if type(obj).__name__ == class_name)
