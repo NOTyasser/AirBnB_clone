@@ -1,15 +1,10 @@
 #!/usr/bin/python3
-"""
-0x00. AirBnB clone - The console
-"""
+"""City Module defines the City class."""
 from models.base_model import BaseModel
 
 
 class City(BaseModel):
-    """Class City that inherits from BaseModel"""
+    """City class representing a city."""
+
     state_id = ""
     name = ""
-
-    def __init__(self, *args, **kwargs):
-        """The init method for the City class"""
-        super().__init__(*args, **kwargs)

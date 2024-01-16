@@ -1,9 +1,10 @@
-footer{
+footer {
 	background-color: #00FF00;
 	height: 60px;
 	width: 100%;
-	margin-top: auto;
-}
-footer p{
-	text-align: center;
+	position: fixed;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

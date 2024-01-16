@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-0x00. AirBnB clone - The console
-"""
+"""Creates a unique FileStorage instance for the application."""
 from models.engine.file_storage import FileStorage
 
 

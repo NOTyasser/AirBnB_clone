@@ -1,14 +1,9 @@
 #!/usr/bin/python3
-"""
-0x00. AirBnB clone - The console
-"""
+"""Amenity Module defines the Amenity class."""
 from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
-    """Class Amenity that inherits from BaseModel"""
-    name = ""
+    """Amenity  class representing an amenity."""
 
-    def __init__(self, *args, **kwargs):
-        """The init method for the Amenity class"""
-        super().__init__(*args, **kwargs)
+    name = ""

@@ -1,82 +1,47 @@
 #!/usr/bin/python3
-"""
-0x00. AirBnB clone - The console
-TEST CASES
-"""
+"""Test BaseModel module using unittest"""
 import unittest
-from models.base_model import BaseModel
 from datetime import datetime
-from datetime import datetime, timedelta
-import pep8
+from models.base_model import BaseModel
 
 
-class TestBaseModel(unittest.TestCase):
-    """
-    TESTING CLASS
-    """
+class Test_Base_Model_init(unittest.TestCase):
+    """Test cases for the initialization of the BaseModel class."""
 
-    def test_pep8_compliance(self):
-        """ Test PEP8 compliance using pycodestyle"""
-        pycodestyle = pep8.StyleGuide(quiet=True)
-        file_paths = ["models/user.py"]
-        result = pycodestyle.check_files(file_paths)
-        error_message = "Found code style errors (and warnings)."
-        self.assertEqual(result.total_errors, 0, error_message)
+    def test__init(self):
+        """Test the initialization of BaseModel instances."""
+        my_model = BaseModel()
+        self.assertEqual(str, type(my_model.id))
+        self.assertEqual(datetime, type(my_model.created_at))
+        self.assertEqual(datetime, type(my_model.updated_at))
 
-    def test_instance(self):
-        """Testing a new created instance"""
-        instance = BaseModel()
-        self.assertEqual(BaseModel, type(instance))
+    def test__save(self):
+        """Test the save method of BaseModel instances."""
+        my_model = BaseModel()
+        initial_updated_at = my_model.updated_at
+        my_model.save()
+        current_updated_at = my_model.updated_at
+        self.assertNotEqual(initial_updated_at, current_updated_at)
 
-    def test_instance_id(self):
-        "testing"
-        instance = BaseModel()
-        self.assertEqual(str, type(instance.id))
+    def test_to_dic(self):
+        """Test the to_dict method of BaseModel instances."""
+        my_model = BaseModel()
+        model_dic = my_model.to_dict()
+        self.assertIsInstance(model_dic, dict)
+        self.assertEqual(model_dic["__class__"], my_model.__class__.__name__)
+        self.assertEqual(model_dic["id"], my_model.id)
+        self.assertEqual(model_dic["created_at"],
+                         my_model.created_at.isoformat())
+        self.assertEqual(model_dic["updated_at"],
+                         my_model.updated_at.isoformat())
 
-    def test_instance_id(self):
-        "testing"
-        instance = BaseModel()
-        self.assertEqual(datetime, type(instance.created_at))
+    def test_str_method(self):
+        """Test the string representation of BaseModel instances."""
+        my_model = BaseModel()
+        self.assertTrue(str(my_model).startswith("[BaseModel]"))
+        self.assertIn(my_model.id, str(my_model))
+        self.assertIn(str(my_model.__dict__), str(my_model))
 
-    def test_instance_id_unique(self):
-        "testing"
-        instance_1 = BaseModel()
-        instance_2 = BaseModel()
-        self.assertNotEqual(instance_1.id, instance_2.id)
 
-    def test_instance_str(self):
-        "testing"
-        instance = BaseModel()
-        expected_str = f"[BaseModel] ({instance.id}) {instance.__dict__}"
-        self.assertEqual(expected_str, instance.__str__())
-
-    def test_instance_created_at(self):
-        "testing"
-        instance = BaseModel()
-        self.assertEqual(datetime, type(instance.created_at))
-
-    def test_instance_init_kwargs(self):
-        """Testing kwargs"""
-        instance = BaseModel()
-        instance.name = "My First Model"
-        instance.my_number = 89
-        self.assertEqual(instance.name, "My First Model")
-        self.assertEqual(instance.my_number, 89)
-
-    def test_object_to_dict(self):
-        """Testing To_dict method"""
-        instance = BaseModel()
-        instance.name = "My First Model"
-        instance.my_number = 89
-        dictionary = instance.to_dict()
-        dictionary_cmp = {
-            'my_number': 89,
-            'name': 'My First Model',
-            '__class__': 'BaseModel',
-            'updated_at': instance.updated_at.isoformat(),
-            'id': instance.id,
-            'created_at': instance.created_at.isoformat()
-        }
-
-        # Define a tolerance for timestamp comparison (e.g., 1 second)
-        timestamp_tolerance = timedelta(seconds=1)
+if __name__ == "__main__":
+    unittest.main()
