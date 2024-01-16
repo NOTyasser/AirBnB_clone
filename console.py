@@ -114,9 +114,8 @@ class HBNBCommand(cmd.Cmd):
             else:
                 class_objects = [str(obj) for obj in objects.values() if type(obj).__name__ == class_name]
                 print("\n".join(class_objects))
-
+    
     def do_count(self, arg):
-    """Count the number of instances of a class"""
     class_name = arg.split('.')[0]
     count = sum(1 for obj in models.storage.all().values() if type(obj).__name__ == class_name)
     print(count)
@@ -146,7 +145,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_destroy(self, arg):
-        """Destroy method that destroys an object."""
         args = arg.split()
         if not args:
             print("** class name missing **")
@@ -171,7 +169,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_update(self, arg):
-        """Update method to update an attribute in a given object"""
         args = arg.split()
         if len(args) == 0:
             print("** class name missing **")
@@ -195,7 +192,6 @@ class HBNBCommand(cmd.Cmd):
                 instance.save()
 
     def do_update_dict(self, arg):
-        """Update method to update an instance based on his ID with a dictionary"""
         args = arg.split()
         if len(args) == 0:
             print("** class name missing **")
