@@ -101,7 +101,6 @@ class HBNBCommand(cmd.Cmd):
     # ... (Previous code remains unchanged)
 
     def do_all(self, arg):
-        """Print all objects or objects of a specific class"""
         objects = models.storage.all()
         args = arg.split()
         if not args:
