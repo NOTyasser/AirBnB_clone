@@ -100,8 +100,8 @@ class HBNBCommand(cmd.Cmd):
 
     # ... (Previous code remains unchanged)
     def do_all(self, arg):
-        objects = models.storage.all()
-            args = arg.split()
+     objects = models.storage.all()
+        args = arg.split()
         if not args:
             for val in objects.values():
                 print(f"{str(val)}", end="")
