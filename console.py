@@ -98,6 +98,9 @@ class HBNBCommand(cmd.Cmd):
         except NameError:
             print("** class doesn't exist **")
 
+  class HBNBCommand(cmd.Cmd):
+    # ... (Previous code remains unchanged)
+
     def do_all(self, arg):
         """To print all objects or objects of a specific class"""
         objects = models.storage.all()
@@ -113,6 +116,64 @@ class HBNBCommand(cmd.Cmd):
                     if type(val).__name__ == arg:
                         print(f"{str(val)}", end="")
                 print()
+
+    def do_count(self, arg):
+        """Count the number of instances of a class"""
+        count = 0
+        objects = models.storage.all()
+        for val in objects.values():
+            if type(val).__name__ == arg:
+                count += 1
+        print(count)
+
+    def do_show(self, arg):
+        """Print the string representation of an instance."""
+        args = arg.split()
+        if not args:
+            print("** class name missing **")
+            return
+        try:
+            class_name = args[0]
+            if class_name not in self.classes_map:
+                print("** class doesn't exist **")
+                return
+            if len(args) < 2:
+                print("** instance id missing **")
+                return
+            instance_id = args[1]
+            key = class_name + "." + instance_id
+            objects = models.storage.all()
+            if key in objects:
+                print(objects[key])
+            else:
+                print("** no instance found **")
+        except NameError:
+            print("** class doesn't exist **")
+
+    def do_destroy(self, arg):
+        """Destroy method that destroys an object."""
+        args = arg.split()
+        if not args:
+            print("** class name missing **")
+            return
+        try:
+            class_name = args[0]
+            if class_name not in self.classes_map:
+                print("** class doesn't exist **")
+                return
+            if len(args) < 2:
+                print("** instance id missing **")
+                return
+            instance_id = args[1]
+            key = class_name + "." + instance_id
+            objects = models.storage.all()
+            if key in objects:
+                del objects[key]
+                models.storage.save()
+            else:
+                print("** no instance found **")
+        except NameError:
+            print("** class doesn't exist **")
 
     def do_update(self, arg):
         """Update method to update an attribute in a given object"""
@@ -137,6 +198,36 @@ class HBNBCommand(cmd.Cmd):
                 attribute_type = type(getattr(instance, args[2], ''))
                 setattr(instance, args[2], attribute_type(args[3]))
                 instance.save()
+
+    def do_update_dict(self, arg):
+        """Update method to update an instance based on his ID with a dictionary"""
+        args = arg.split()
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] not in self.classes_map:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        else:
+            objects = models.storage.all()
+            key = f"{args[0]}.{args[1]}"
+            if key not in objects.keys():
+                print("** no instance found **")
+            elif len(args) == 2:
+                print("** dictionary missing **")
+            else:
+                instance = objects[key]
+                try:
+                    dictionary = eval(args[2])
+                    if type(dictionary) is dict:
+                        for k, v in dictionary.items():
+                            attribute_type = type(getattr(instance, k, ''))
+                            setattr(instance, k, attribute_type(v))
+                        instance.save()
+                    else:
+                        print("** not a dictionary **")
+                except:
+                    print("** invalid dictionary **")
 
 
 if __name__ == '__main__':
